@@ -17,10 +17,10 @@ const LOG_LEVEL_IMAGES = {
   log:
     "https://github.com/papayaglobal/loggly-teams-webhook/raw/master/images/question.png",
 };
-const stringifyEscaped = data => {
+const stringifyEscaped = (data) => {
   return jsesc(JSON.stringify(data, null, 2), {
     quotes: "double",
-  }).replace(/\\[nr]/g, "\\n\\n")
+  }).replace(/\\[nr]/g, "\\n\\n");
 };
 
 const createTeamsMsg = (body) => {
@@ -85,27 +85,21 @@ const sendMsg = (msg, webhookURL) => {
       },
     };
 
-    console.log("sending requst", post_options, msg);
     const post = https.request(post_options, (res) => {
-      console.log("statusCode:", res.statusCode);
       res.on("data", (d) => {
         console.log(d.toString());
         resolve();
       });
     });
     post.on("error", (e) => {
-      console.log("Error sending requst to teams", e);
       reject(e);
     });
     post.write(msg);
-    post.end(() => {
-      console.log("request sent");
-    });
+    post.end(() => {});
   });
 };
 
 api.post("/loggly", function (request) {
-  console.log("start", request.body);
   return sendMsg(createTeamsMsg(request.body), request.env["WEBHOOK_URL"]);
 });
 
