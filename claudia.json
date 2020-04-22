@@ -1,0 +1,11 @@
+{
+  "lambda": {
+    "role": "loggly-teams-executor",
+    "name": "loggly-teams",
+    "region": "us-west-1"
+  },
+  "api": {
+    "id": "3fe2r8z8v4",
+    "module": "app"
+  }
+}
